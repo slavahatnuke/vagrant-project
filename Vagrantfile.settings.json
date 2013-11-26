@@ -1,7 +1,12 @@
 {
+	"project": "ProjectVM",
+
 	"memory":     "1024",
 	"cpus":       "2",
-	"private_ip": "192.168.2.3",
 
-	"project": "ProjectVM"
+	"vram":     "16",
+
+	"private_ip": "192.168.2.2",
+	"gui": false
+
 }

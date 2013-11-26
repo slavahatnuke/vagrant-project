@@ -14,15 +14,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   ## Network
   config.vm.network :private_network, ip: settings['private_ip']
-  config.vm.network :forwarded_port, guest: 80, host: 81
+
+  ## Network/Ports
+  # config.vm.network :forwarded_port, guest: 80, host: 8080
   # config.vm.network :forwarded_port, guest: 3306, host: 3307
 
   ## Sync
   config.vm.synced_folder "project", "/project", :nfs => true
+  config.vm.synced_folder "provision", "/provision", :nfs => true
+
+  ## Provision
+
+  # Initial / Install
+  config.vm.provision "shell", path: "provision/shell/install.sh"
 
   ## Properties
   config.vm.provider :virtualbox do |vb|
-    #vb.gui = true
+
+    vb.gui = settings['gui']
     vb.name = settings['project']
 
     vb.customize ["modifyvm", :id, "--memory", settings['memory']]
@@ -30,7 +39,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     vb.customize ["modifyvm", :id, "--acpi", "on"]
     vb.customize ["modifyvm", :id, "--ioapic", "on"]
-    vb.customize ["modifyvm", :id, "--vram", "16"]
+    vb.customize ["modifyvm", :id, "--vram", settings['vram']]
 
     vb.customize ["storageattach", :id, "--storagectl", "SATA Controller", '--port', '0', '--nonrotational', 'on']
   end
