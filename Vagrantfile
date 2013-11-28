@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   ## Provision
 
   # Initial / Install
-  config.vm.provision "shell", path: "provision/shell/install.sh"
+  config.vm.provision "shell", inline: settings['provision']
 
   ## Properties
   config.vm.provider :virtualbox do |vb|
