@@ -4,7 +4,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  settings = JSON.parse(IO.read('Vagrantfile.settings.json'))
+  settings = JSON.parse(IO.read('Vagrantfile.project.json'))
 
   ## Box
   config.vm.box = settings["box"]
@@ -26,7 +26,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   ## Provision
-  config.vm.provision "shell", inline: settings['provision']
+  settings["provision"].each do |key, value|
+    config.vm.provision "shell", inline: value
+  end
 
   ## Properties
   config.vm.provider :virtualbox do |vb|
