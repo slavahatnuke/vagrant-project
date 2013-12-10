@@ -1,19 +1,19 @@
 project: ProjectVM
 
-memory:     512
-cpus:       1
+memory: 512
+cpus: 1
 
 ip: 192.168.80.80
 nfs: false
 
 sync:
-    ".": "/project"
+  ".": "/project"
 
 provision:
-    install: /project/Vagrantfile.install.sh
+  install:  'echo "Installing..." && uname -a'
 
 ports:
-    80: 8080
+  80: 8080
 
 gui: false
 vram: 16
@@ -24,3 +24,5 @@ guest: ubuntu
 
 acpi: "on"
 ioapic: "on"
+
+nonrotational: true

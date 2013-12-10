@@ -9,11 +9,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   ## Box
   config.vm.box = project["box"]
   config.vm.box_url = project["box_url"]
-
   config.vm.guest = project["guest"]
 
   ## Network
-  config.vm.network :private_network, ip: project['ip']
+  if project['ip']
+      config.vm.network :private_network, ip: project['ip']
+  end
 
   ## Network/Ports
   project["ports"].each do |key, value|
@@ -43,7 +44,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--ioapic", project['ioapic']]
     vb.customize ["modifyvm", :id, "--vram", project['vram']]
 
-    # vb.customize ["storageattach", :id, "--storagectl", "SATA Controller", '--port', '0', '--nonrotational', 'on']
+    if project['nonrotational']
+      vb.customize ["storageattach", :id, "--storagectl", "SATA Controller", '--port', '0', '--nonrotational', 'on']
+    end
+
   end
 
 end
