@@ -1,10 +1,10 @@
-require 'json'
+require 'yaml'
 
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  project = JSON.parse(IO.read('Vagrantfile.project.json'))
+  project = YAML.load_file('Vagrantfile.project.yml')
 
   ## Box
   config.vm.box = project["box"]

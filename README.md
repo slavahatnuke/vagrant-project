@@ -7,6 +7,6 @@
 2. `vagrant up` [docs](http://www.vagrantup.com/)
 3. speedup network
  * install nfsd [ubuntu](https://help.ubuntu.com/community/SettingUpNFSHowTo)
- * edit `Vagrantfile.project.json`
+ * edit `Vagrantfile.project.yml`
  * set `"nfs": true`
  * `vagrant reload`
